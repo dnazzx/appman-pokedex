@@ -1,31 +1,44 @@
-// import Store from '../store'
-import axios from 'axios'
+import store from '../store';
+import axios from 'axios';
 
-// export function getListPokedex() {
-//     Store.dispatch({type: });
+import { GET_CARD, GET_LIST, SELECT_CARD, DESELECT_CARD } from './types';
 
-//     return function(dispatch) {
-//         return axios.get("http://localhost:3030/api/cards")
-//             .then(card => {
-//                 console.log(card)
-//                 dispatch({type:'fetched_list', listPokedex: card.listPokedex})
-//         })
-//     }
-// }
-
+//Get card
 export const getListPokedex = () => (dispatch) => {
-    axios.get("http://localhost:3030/api/cards")
-        .then((res) => {
-            dispatch({
-                type: "FETCHING_LIST",
-                payload: res.data
-            })
-            console.log(res)
+    axios
+        .get("http://localhost:3030/api/cards")
+        .then((res) => { 
+            console.log(res.data.cards)
+            dispatch({ type: GET_CARD, payload: res.data.cards,})
+
         })
-        .catch((err) => {
+         .catch((err) =>
             dispatch({
-                type: "FETCHING_LIST",
-                payload: null
+                type: GET_CARD,
+                payload: {},
             })
+        )
+}
+export const getMyPokedex = (idcard) => (dispatch) => {
+    axios
+        .get("http://localhost:3030/api/cards")
+        .then((res) => { 
+            dispatch({ type: GET_LIST, payload: res.data.cards, id: idcard })
         })
+         .catch((err) =>
+            dispatch({
+                type: GET_LIST,
+                payload: {},
+            })
+        )
+}
+
+export function addCard(card) {
+    // console.log(card)
+    return store.dispatch({ type: SELECT_CARD, item_card: card });
+}
+
+export function removeCard(idcard) {
+    console.log(idcard)
+    return store.dispatch({ type: DESELECT_CARD, id: idcard });
 }
