@@ -18,10 +18,10 @@ export default function (state = initialState, action) {
     case "GET_LIST":
         //รับข้อมูลที่ได้จากการค้นหา
         let data_query = action.payload;
-        let listPokedex = action.payload
+        // let listPokedex = action.payload
         
         state.selected.map((card) => {
-          data_query = data_query.filter((q_card) =>{ return q_card.id !== card.id})
+          return data_query = data_query.filter((q_card) =>{ return q_card.id !== card.id})
         })
 
         state = {
