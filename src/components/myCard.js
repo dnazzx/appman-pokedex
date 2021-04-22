@@ -16,9 +16,9 @@ class myCard extends React.Component {
     componentDidMount() {
 		this.props.getMyPokedex();
     }
-    handleRemove = (id) => {
-        console.log(id)
-        this.props.removeCard(id);
+    handleRemove = (item) => {
+        // console.log(item)
+        this.props.removeCard(item);
     }
     renderPokedex = (item,index) => {
         // const { search } = this.state;
@@ -54,7 +54,7 @@ class myCard extends React.Component {
                     </div>
                 </div>
                 <div className="card-remove">
-                    <button type="button" onClick={()=>{this.handleRemove(item.id)}}>X</button>
+                    <button type="button" onClick={()=>{this.handleRemove(item)}}>X</button>
                 </div>
             </div>        
         );

@@ -158,6 +158,7 @@
 }
 .modal-body .card-add button {
   /* position: relative; */
+  font-size: 28px;
   float: inline-end;
   color: #dc7777;
   background-color: transparent;
@@ -211,6 +212,7 @@
   right: 1rem;
 }
 .card-body .card-remove button {
+  font-size: 28px;
   color: #eb4d4b;
   background-color: transparent;
   border: transparent;
