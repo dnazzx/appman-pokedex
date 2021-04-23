@@ -1,6 +1,6 @@
 import React from "react";
 import searchimg from "../search.png";
-import cuteimg from "../cute.png";
+// import cuteimg from "../cute.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -8,24 +8,63 @@ import {
   getMyPokedex,
   addCard,
 } from "../redux/actions/cardAction";
+import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
 
 class ModalContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: "",
-      listCard: [],
       loading: false,
+      itemPerPage: 20,
+      load: 1,
     };
   }
+  /* Component */
   componentWillMount() {
     this.props.getListPokedex();
   }
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.card.query !== this.props.card.query) {
-      this.setState({ query : nextProps.query })
-    }
+  componentWillUpdate() {
+    this.props.getMyPokedex({}, this.state.query);
   }
+
+  /* event handle */
+  handleOnInputChange = (event) => {
+    const query = event.target.value.toLowerCase();
+    this.setState({ query, loading: true });
+  };
+  handleClick = (item) => {
+    this.props.addCard(item);
+  };
+  loadPage = () => {
+    this.setState({ load: this.state.load + 1 });
+  };
+
+  /*--------------- Calculate Status Pokedex (Start)--------------- */
+
+  /*--------------- Calculate Status Pokedex (End) --------------- */
+
+  loadButton = () => {
+    return (
+      <div className="body-footer">
+        <button
+          onClick={this.loadPage}
+          style={{
+            fontSize: "25px",
+            padding: "0.2rem 1rem",
+            backgroundColor: "transparent",
+            color: "#dc7777",
+            border: "1px solid #f3f4f7",
+            boxShadow: "inset 0 1px 3px #d4d4d4",
+            cursor: "pointer",
+          }}
+        >
+          Load More
+        </button>
+      </div>
+    );
+  };
+
   renderPokedex = (item, index) => {
     return (
       <div className="card" key={index}>
@@ -35,27 +74,72 @@ class ModalContent extends React.Component {
         <div className="card-details">
           <h2>{item.name.toUpperCase()}</h2>
           <table>
+            <colgroup>
+              <col style={{ width: "100px" }}></col>
+            </colgroup>
             <tbody>
               <tr>
                 <td>HP</td>
-                <th>{item.hp}</th>
+                <th>
+                  <div className="progress_bar">
+                    <span
+                      style={{
+                        display: "block",
+                        width:
+                          item.hp >= 100
+                            ? 100 + "%"
+                            : item.hp + "%" && isNaN(item.hp)
+                            ? 0 + "%"
+                            : item.hp + "%",
+                        height: "1.7rem",
+                        backgroundColor: "#f3701a",
+                        borderRadius: "30px",
+                      }}
+                    ></span>
+                  </div>
+                </th>
               </tr>
               <tr>
                 <td>STR</td>
                 <th>
-                  <div className="progress">
-                    <div className="bar">{item.hp}</div>
+                  <div className="progress_bar">
+                    <span
+                      style={{
+                        display: "block",
+                        width: calStr(item.attacks) + "%",
+                        height: "1.7rem",
+                        backgroundColor: "#f3701a",
+                        borderRadius: "30px",
+                      }}
+                    ></span>
                   </div>
                 </th>
               </tr>
               <tr>
                 <td>WEAK</td>
-                <th>{item.hp}</th>
+                <th>
+                  <div className="progress_bar">
+                    <span
+                      style={{
+                        display: "block",
+                        width: calWeak(item.weaknesses) + "%",
+                        height: "1.7rem",
+                        backgroundColor: "#f3701a",
+                        borderRadius: "30px",
+                      }}
+                    ></span>
+                  </div>
+                </th>
               </tr>
             </tbody>
           </table>
           <div className="happiness">
-            <img src={cuteimg} alt="HAPPINESS" />
+            {/* <img src={cuteimg} alt="HAPPINESS" /> */}
+            {calHappiness(
+              item.hp,
+              calWeak(item.weaknesses),
+              calDamage(item.attacks)
+            )}
           </div>
         </div>
         <div className="card-add">
@@ -71,25 +155,8 @@ class ModalContent extends React.Component {
       </div>
     );
   };
-  onchange = (e) => {
-    const query = e.target.value;
-    console.log(query);
-    if (!query) {
-      this.setState({ query, listCard: {} });
-    } else {
-      this.setState({ query, loading: true }, () => {
-        this.props.getMyPokedex();
-      });
-    }
-  };
-
-  handleClick = (item) => {
-    this.props.addCard(item);
-    this.props.getMyPokedex(item.id);
-  };
 
   render() {
-    // console.log(this.props.card)
     return (
       <>
         <div className="menu-footer">
@@ -111,7 +178,7 @@ class ModalContent extends React.Component {
                   placeholder="Find pokemon"
                   id="searchinput"
                   className="search-input"
-                  onChange={this.onchange}
+                  onChange={this.handleOnInputChange}
                 />
                 <img
                   src={searchimg}
@@ -121,8 +188,12 @@ class ModalContent extends React.Component {
               </div>
               <div className="modal-body">
                 {this.props.card.query.map((card, index) => {
+                  if (index >= 20 * this.state.load) return null;
                   return this.renderPokedex(card, index);
                 })}
+                {this.props.card.query.length > 20 * this.state.load
+                  ? this.loadButton()
+                  : ""}
               </div>
             </div>
             <label
@@ -143,10 +214,18 @@ ModalContent.propTypes = {
   getListPokedex: PropTypes.func.isRequired,
   addCard: PropTypes.func.isRequired,
   getMyPokedex: PropTypes.func.isRequired,
+  calStr: PropTypes.func.isRequired,
+  calWeak: PropTypes.func.isRequired,
+  calDamage: PropTypes.func.isRequired,
+  calHappiness: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, {
   getListPokedex,
   getMyPokedex,
   addCard,
+  calStr,
+  calWeak,
+  calDamage,
+  calHappiness
 })(ModalContent);

@@ -138,6 +138,9 @@
   margin-top: 5rem;
   overflow: auto;
   position: relative;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: center;
   /* z-index: 100; */
 }
 .modal-body .card {
@@ -147,6 +150,7 @@
   height: fit-content;
   padding: 1rem 1rem;
   display: flex;
+  align-items: center;
   box-shadow: 0px 0px 38px rgba(0, 0, 0, 0.05);
 }
 .modal .modal-body .card-add{
@@ -155,6 +159,7 @@
   justify-self: end;
   position: absolute;
   right: 1rem;
+  align-self: flex-start;
 }
 .modal-body .card-add button {
   /* position: relative; */
@@ -166,10 +171,16 @@
   cursor: pointer;
 }
 .modal-body .card-pic img {
-  width: 80%;
+  width: 75%;
+}
+.modal-body .card .card-details {
+  margin-left: -2rem;
+}
+.body-footer {
+  text-align: center;
 }
 
-/* card body */
+/* my card body */
 .card {
   position: relative;
 }
@@ -201,9 +212,6 @@
   display: flex;
   justify-content: flex-start;
 }
-.card-body .card-details{
-  margin-left: -2rem;
-}
 .card-body .card-remove{
   font-size: 20px;
   margin: right;
@@ -231,4 +239,25 @@
 .card-remove {
   margin-right: 0;
   position: relative;
+}
+
+/*table style*/
+table tr td {
+  font-size: 20px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/*progress bar*/
+.progress_bar {
+  height: 1.7rem;
+  background-color: #e4e4e4;
+  border-radius: 30px;
+  box-shadow: inset 0 1px 3px #d4d4d4;
+}
+.modal .modal-body .progress_bar {
+  width: 350px;
+}
+.card-body .progress_bar {
+  width: 200px;
 }

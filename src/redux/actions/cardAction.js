@@ -20,11 +20,11 @@ export const getListPokedex = () => (dispatch) => {
 }
 
 //for search
-export const getMyPokedex = (idcard) => (dispatch) => {
+export const getMyPokedex = (idcard, query) => (dispatch) => {
     axios
-        .get("http://localhost:3030/api/cards")
+        .get("http://localhost:3030/api/cards?limit=100")
         .then((res) => { 
-            dispatch({ type: GET_LIST, payload: res.data.cards, id: idcard })
+            dispatch({ type: GET_LIST, payload: res.data.cards, id: idcard, search: query })
         })
          .catch((err) =>
             dispatch({

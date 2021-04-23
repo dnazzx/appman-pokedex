@@ -13,29 +13,38 @@ export default function (state = initialState, action) {
     case "GET_CARD":
       return {
         ...state,
-        listPokedex: action.payload,
+        query: action.payload,
         loading: false,
       };
 
     case "GET_LIST":
         //รับข้อมูลที่ได้จากการค้นหา
         let data_query = action.payload;
-        // let listPokedex = action.payload
-        
+        const keyword = action.search;
+
         state.selected.map((card) => {
-          console.log(card)
-          data_query = data_query.filter((q_card) =>{ 
+          data_query = data_query.filter((q_card) =>{
             return q_card.id !== card.id
           })
-          // console.log(data_query)
           return data_query
+        })
+        // console.log(data_query)
+        
+        const search_query = data_query.filter((card) => {
+            if (card.name.toLowerCase().includes(keyword) !== false)
+              return card.name.toLowerCase().includes(keyword)
+            else if (card.type.toLowerCase().includes(keyword) !== false)
+              return card.type.toLowerCase().includes(keyword)
+            else 
+              return null
         })
 
         state = {
             ...state,
-            query: data_query
+            query: search_query
         }
-        return state;
+      return state;
+
     case "SELECT_CARD":
       const thiscard = action.item_card;
       let iSelected = undefined;
