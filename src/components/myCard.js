@@ -121,8 +121,6 @@ class myCard extends React.Component {
           {filteredPokedex.map((item, index) => {
             return this.renderPokedex(item, index);
           })}
-
-          {/* ))} */}
         </div>
         <div className="card-footer"></div>
       </div>

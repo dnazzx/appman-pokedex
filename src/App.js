@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
           <h1 className="text-center">My Pokedex</h1>
-          <Card className="cardlist"/>
+          <Card/>
           <ModalContent/>
       </div>
     )

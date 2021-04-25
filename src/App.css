@@ -141,7 +141,8 @@
   flex-wrap: wrap;
   align-content: space-between;
   justify-content: center;
-  /* z-index: 100; */
+  display: flex;
+  row-gap: 20px;
 }
 .modal-body .card {
   background-color: #f3f4f7;
@@ -151,15 +152,25 @@
   padding: 1rem 1rem;
   display: flex;
   align-items: center;
-  box-shadow: 0px 0px 38px rgba(0, 0, 0, 0.05);
+}
+.modal-body .card:hover{
+  box-shadow: 2px 5px 10px #aeaeae;
 }
 .modal .modal-body .card-add{
+  display: none;
   font-size: 20px;
   margin: right;
   justify-self: end;
   position: absolute;
   right: 1rem;
   align-self: flex-start;
+}
+.modal .modal-body .card:hover .card-add {
+  display: block;
+}
+.modal .modal-body .happiness img{
+  width: 3rem;
+  padding: 0.2rem;
 }
 .modal-body .card-add button {
   /* position: relative; */
@@ -212,12 +223,19 @@
   display: flex;
   justify-content: flex-start;
 }
+.card-body .card:hover {
+  box-shadow: 2px 5px 10px #aeaeae;
+}
 .card-body .card-remove{
+  display: none;
   font-size: 20px;
   margin: right;
   justify-self: end;
   position: absolute;
   right: 1rem;
+}
+.card-body .card:hover .card-remove {
+  display: block;
 }
 .card-body .card-remove button {
   font-size: 28px;
@@ -227,18 +245,21 @@
   cursor: pointer;
 }
 .card-body .card-pic img{
-  width: 70%;
+  width: 100%;
 }
-.happiness img{
-  width: 3rem;
+.card-area .card-body .happiness img{
+  width: 2.5rem;
+  padding: 0.1rem;
 }
-
 .grid-container{
   display: grid;
 }
 .card-remove {
   margin-right: 0;
   position: relative;
+}
+.card-body .card .card-details {
+  padding-left: 1.2rem;
 }
 
 /*table style*/

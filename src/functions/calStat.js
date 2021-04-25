@@ -40,7 +40,7 @@ export const calHappiness = (hp, weak, dmg) => {
     let element = [];
     for (let i = 0; i < happiness; i++) {
       element.push(
-        <img src={cuteimg} alt="HAPPINESS" style={{ padding: "0.3rem" }} />
+        <img src={cuteimg} alt="HAPPINESS" />
       );
     }
     return element;
