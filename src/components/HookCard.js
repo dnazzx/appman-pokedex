@@ -1,30 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   getListPokedex,
   getMyPokedex,
   removeCard,
 } from "../redux/actions/cardAction";
 import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-class myCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-  }
-  componentDidMount() {
-    console.log(this.props.card)
-    this.props.getMyPokedex();
-  }
-  handleRemove = (item) => {
+function HookCard() {
+const cards = useSelector(state => state.card)
+
+  const handleRemove = (item) => {
     console.log(item)
-    this.props.removeCard(item);
+    removeCard(item);
   };
-  renderPokedex = (item, index) => {
-    // const { search } = this.state;
+
+  useEffect(() => {
+    // console.log(cards)
+    getMyPokedex();
+  }, []);
+
+  const renderPokedex = (item, index) => {
     return (
       <div className="card" key={index}>
         <div className="card-pic">
@@ -102,7 +99,7 @@ class myCard extends React.Component {
           <button
             type="button"
             onClick={() => {
-              this.handleRemove(item);
+              handleRemove(item);
             }}
           >
             X
@@ -111,32 +108,31 @@ class myCard extends React.Component {
       </div>
     );
   };
-  render() {
-    let filteredPokedex = this.props.card.selected;
-    return (
-      <div className="card-area">
-        <div className="card-body">
-          {filteredPokedex.map((item, index) => {
-            return this.renderPokedex(item, index);
-          })}
-        </div>
-        <div className="card-footer"></div>
+
+  return (
+    <div className="card-area">
+      <div className="card-body">
+        {cards.selected.map((item, index) => {
+          return renderPokedex(item, index);
+        })}
       </div>
-    );
-  }
+      <div className="card-footer"></div>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({
-  card: state.card,
-});
-myCard.propTypes = {
-  getListPokedex: PropTypes.func.isRequired,
-  removeCard: PropTypes.func.isRequired,
-  getMyPokedex: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, {
-  getListPokedex,
-  getMyPokedex,
-  removeCard,
-})(myCard);
+    cards: state.query,
+  });
+  HookCard.propTypes = {
+    getListPokedex: PropTypes.func.isRequired,
+    removeCard: PropTypes.func.isRequired,
+    getMyPokedex: PropTypes.func.isRequired,
+  };
+  
+  export default connect(mapStateToProps, {
+    getListPokedex,
+    getMyPokedex,
+    removeCard,
+  })(HookCard);
+  

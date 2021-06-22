@@ -3,8 +3,25 @@ import thunk from 'redux-thunk'
 import cardReducer from './reducers/cardReducer'
 
 const reducers = combineReducers({
-    card: cardReducer
+    query: cardReducer
 })
-const store = createStore( reducers,applyMiddleware(thunk))
+const store = createStore(reducers, applyMiddleware(thunk))
 
 export default store;
+
+// import { createStore, applyMiddleware, combineReducers} from 'redux'
+// // import thunk from 'redux-thunk'
+// import createSagaMiddleware from 'redux-saga'
+// import cardReducer from './reducers/cardReducer'
+
+// import rootSaga from './saga/sagas'
+
+// const reducers = combineReducers({
+//     card: cardReducer
+// })
+// const sagaMiddleware = createSagaMiddleware();
+// const store = createStore(reducers, applyMiddleware(sagaMiddleware))
+
+// sagaMiddleware.run(rootSaga)
+
+// export default store;

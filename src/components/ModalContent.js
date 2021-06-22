@@ -1,6 +1,5 @@
 import React from "react";
 import searchimg from "../search.png";
-// import cuteimg from "../cute.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -23,6 +22,7 @@ class ModalContent extends React.Component {
   /* Component */
   componentWillMount() {
     this.props.getListPokedex();
+    // console.log(this.props.getListPokedex)
   }
   componentWillUpdate() {
     this.props.getMyPokedex({}, this.state.query);

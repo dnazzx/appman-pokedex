@@ -4,11 +4,6 @@ import './index.css';
 import App from './App';
 import store from './redux/store'
 import { Provider } from 'react-redux'
-// import { createStore, applyMiddleware} from 'redux'
-// import thunk from 'redux-thunk'
-// import rootReducer from './redux/reducers/cardReducer'
-
-// const store = createStore( rootReducer,applyMiddleware(thunk))
 
 ReactDOM.render(
     <Provider store={store}>

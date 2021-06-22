@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
-import ModalContent from './components/ModalContent'
-import Card from './components/myCard'
+// import ModalContent from './components/ModalContent'
+// import Card from './components/myCard'
+import HookModal from './components/HookModal'
+import HookCard from './components/HookCard'
+// import modalTS from './typescript/modalTS'
+// import store from './redux/store'
+// import { Modal } from 'react-bootstrap'
 
 // const COLORS = {
 //   Psychic: "#f8a5c2",
@@ -17,13 +22,18 @@ import Card from './components/myCard'
 //   Fire: "#eb4d4b"
 // }
 
+// const action = ( type, payload ) => store.dispatch({ type, payload });
+
 class App extends Component {
   render() {
     return (
       <div className="App">
           <h1 className="text-center">My Pokedex</h1>
-          <Card/>
-          <ModalContent/>
+          {/* <Card/> */}
+          {/* <ModalContent/> */}
+          
+          <HookCard/>
+          <HookModal/>
       </div>
     )
   }
