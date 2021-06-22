@@ -21,7 +21,11 @@ export default function (state = initialState, action) {
         //รับข้อมูลที่ได้จากการค้นหา
         let data_query = action.payload;
         const keyword = action.search;
+<<<<<<< Updated upstream
 
+=======
+        console.log(action.payload)
+>>>>>>> Stashed changes
         state.selected.map((card) => {
           data_query = data_query.filter((q_card) =>{
             return q_card.id !== card.id
