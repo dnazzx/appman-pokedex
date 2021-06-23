@@ -1,17 +1,39 @@
-import React, {useEffect} from "react";
-import {
-  getListPokedex,
-  getMyPokedex,
-  removeCard,
-} from "../redux/actions/cardAction";
+import React, { useEffect } from "react";
+import { getMyPokedex, removeCard } from "../redux/actions/cardAction";
 import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
 import { useDispatch, useSelector } from "react-redux";
 
-function HookCard() {
-  const cards = useSelector(state => state.card)
+type pokedex = {
+  card: statePokedex
+}
+type statePokedex = {
+  loading: boolean,
+  selected: [],
+  query: pokedex_item[]
+}
+interface pokedex_item {
+  id: string,
+  name: string,
+  imageUrl: string,
+  hp: number,
+  number: number,
+  attacks: [{
+    damage: number
+  }],
+  weaknesses: [{
+    type: string,
+    value: number
+  }]
+}
+
+function CardType() {
+
+  const selectCard = (state: pokedex) => state.card
+  const cards = useSelector(selectCard)
+
   const dispatch = useDispatch()
 
-  const handleRemove = (item) => {
+  const handleRemove = (item: object) => {
     dispatch(removeCard(item));
   };
 
@@ -19,7 +41,7 @@ function HookCard() {
     dispatch(getMyPokedex());
   }, []);
 
-  const renderPokedex = (item, index) => {
+  const renderPokedex = (item: pokedex_item, index: number) => {
     return (
       <div className="card" key={index}>
         <div className="card-pic">
@@ -40,8 +62,8 @@ function HookCard() {
                           item.hp >= 100
                             ? 100 + "%"
                             : item.hp + "%" && isNaN(item.hp)
-                            ? 0 + "%"
-                            : item.hp + "%",
+                              ? 0 + "%"
+                              : item.hp + "%",
                         height: "1.7rem",
                         backgroundColor: "#f3701a",
                         borderRadius: "30px",
@@ -85,7 +107,7 @@ function HookCard() {
             </tbody>
           </table>
           <div className="happiness">
-            <img src={cuteimg} alt="HAPPINESS" />
+            {/* <img src={cuteimg} alt="HAPPINESS" /> */}
             {calHappiness(
               item.hp,
               calWeak(item.weaknesses),
@@ -118,6 +140,5 @@ function HookCard() {
     </div>
   );
 }
-  
-  export default HookCard;
-  
+
+export default CardType;

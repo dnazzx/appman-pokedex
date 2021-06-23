@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import './App.css'
 // import ModalContent from './components/ModalContent'
 // import Card from './components/myCard'
-import HookModal from './components/HookModal'
-import HookCard from './components/HookCard'
-// import modalTS from './typescript/modalTS'
+// import HookModal from './components/HookModal'
+// import HookCard from './components/HookCard'
+import CardType from './typescript/CardType.tsx'
+import ModalType from './typescript/ModalType.tsx'
 // import store from './redux/store'
 // import { Modal } from 'react-bootstrap'
 
@@ -31,9 +32,11 @@ class App extends Component {
           <h1 className="text-center">My Pokedex</h1>
           {/* <Card/> */}
           {/* <ModalContent/> */}
-          
-          <HookCard/>
-          <HookModal/>
+          {/* <ModalType/> */}
+          <CardType/>
+          <ModalType/>
+          {/* <HookCard/> */}
+          {/* <HookModal/> */}
       </div>
     )
   }

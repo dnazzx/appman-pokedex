@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import searchimg from "../search.png";
-import { connect, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getListPokedex,
   getMyPokedex,
@@ -21,7 +20,7 @@ function HookModal({ getListPokedex, getMyPokedex, addCard }) {
     };
 
     const handleClick = (item) => {
-        addCard(item);
+      dispatch(addCard(item));
     };
 
     const loadPage = () => {
@@ -140,7 +139,7 @@ function HookModal({ getListPokedex, getMyPokedex, addCard }) {
       };
 
     useEffect(()=>{
-        getMyPokedex({}, search)
+      dispatch(getMyPokedex({}, search))
     })
 
     return (
@@ -190,27 +189,5 @@ function HookModal({ getListPokedex, getMyPokedex, addCard }) {
         </div>
     )
 }
-
-const mapStateToProps = state => ({
-    cards: state.query
-});
-
-HookModal.propTypes = {
-    getListPokedex: PropTypes.func.isRequired,
-    addCard: PropTypes.func.isRequired,
-    getMyPokedex: PropTypes.func.isRequired,
-    calStr: PropTypes.func.isRequired,
-    calWeak: PropTypes.func.isRequired,
-    calDamage: PropTypes.func.isRequired,
-    calHappiness: PropTypes.func.isRequired,
-};
   
-export default connect(mapStateToProps, {
-    getListPokedex,
-    getMyPokedex,
-    addCard,
-    calStr,
-    calWeak,
-    calDamage,
-    calHappiness
-})(HookModal);
+export default HookModal;
