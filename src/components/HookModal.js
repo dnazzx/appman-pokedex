@@ -15,7 +15,6 @@ function HookModal({ getListPokedex, getMyPokedex, addCard }) {
     const cards = useSelector(state => state.card)
 
     const handleOnInputChange = (event) => {
-        // console.log('hi')
         setSearch(event.target.value.toLowerCase())
     };
 

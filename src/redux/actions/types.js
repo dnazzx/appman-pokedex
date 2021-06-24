@@ -1,6 +1,7 @@
-export const GET_CARD = 'GET_CARD';
-export const GET_LIST = 'GET_LIST'
-export const GET_ERRORS = 'GET_ERRORS';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS'
-export const SELECT_CARD = 'SELECT_CARD'
-export const DESELECT_CARD = 'DESELECT_CARD'
+export const GET_LIST = "GET_LIST";
+export const SELECT_CARD = "SELECT_CARD";
+export const DESELECT_CARD = "DESELECT_CARD";
+
+export const REQUEST_CARD = "REQUEST_CARD";
+export const REQUEST_ADD_CARD = "REQUEST_ADD_CARD";
+export const REQUEST_REMOVE_CARD = "REQUEST_REMOVE_CARD";

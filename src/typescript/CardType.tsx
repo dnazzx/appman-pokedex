@@ -1,35 +1,31 @@
+// eslint-disable-next-line
 import React, { useEffect } from "react";
 import { getMyPokedex, removeCard } from "../redux/actions/cardAction";
 import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
 import { useDispatch, useSelector } from "react-redux";
 
-type pokedex = {
-  card: statePokedex
-}
-type statePokedex = {
-  loading: boolean,
-  selected: [],
-  query: pokedex_item[]
-}
 interface pokedex_item {
   id: string,
   name: string,
   imageUrl: string,
   hp: number,
   number: number,
-  attacks: [{
-    damage: number
-  }],
+  attacks: { damage: number }[],
   weaknesses: [{
-    type: string,
     value: number
   }]
+}
+type statePokedex = {
+  selected: [],
+  query: pokedex_item[]
+}
+type pokedex = {
+  card: statePokedex
 }
 
 function CardType() {
 
-  const selectCard = (state: pokedex) => state.card
-  const cards = useSelector(selectCard)
+  const cards = useSelector((state: pokedex) => state.card)
 
   const dispatch = useDispatch()
 
@@ -39,7 +35,7 @@ function CardType() {
 
   useEffect(() => {
     dispatch(getMyPokedex());
-  }, []);
+  }, [dispatch]);
 
   const renderPokedex = (item: pokedex_item, index: number) => {
     return (

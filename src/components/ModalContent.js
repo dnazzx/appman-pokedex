@@ -22,7 +22,6 @@ class ModalContent extends React.Component {
   /* Component */
   componentWillMount() {
     this.props.getListPokedex();
-    // console.log(this.props.getListPokedex)
   }
   componentWillUpdate() {
     this.props.getMyPokedex({}, this.state.query);

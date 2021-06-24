@@ -1,45 +1,24 @@
-import React, { Component } from 'react'
-import './App.css'
-// import ModalContent from './components/ModalContent'
-// import Card from './components/myCard'
-// import HookModal from './components/HookModal'
-// import HookCard from './components/HookCard'
-import CardType from './typescript/CardType.tsx'
-import ModalType from './typescript/ModalType.tsx'
-// import store from './redux/store'
-// import { Modal } from 'react-bootstrap'
+import React, { Component } from "react";
+import "./App.css";
 
-// const COLORS = {
-//   Psychic: "#f8a5c2",
-//   Fighting: "#f0932b",
-//   Fairy: "#c44569",
-//   Normal: "#f6e58d",
-//   Grass: "#badc58",
-//   Metal: "#95afc0",
-//   Water: "#3dc1d3",
-//   Lightning: "#f9ca24",
-//   Darkness: "#574b90",
-//   Colorless: "#FFF",
-//   Fire: "#eb4d4b"
-// }
+import store from "./redux/store";
+import { REQUEST_CARD } from "./redux/actions/types";
 
-// const action = ( type, payload ) => store.dispatch({ type, payload });
+import CardType from "./typescript/CardType.tsx";
+import ModalType from "./typescript/ModalType.tsx";
+
+const action = (type, payload) => store.dispatch({ type, payload });
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-          <h1 className="text-center">My Pokedex</h1>
-          {/* <Card/> */}
-          {/* <ModalContent/> */}
-          {/* <ModalType/> */}
-          <CardType/>
-          <ModalType/>
-          {/* <HookCard/> */}
-          {/* <HookModal/> */}
+        <h1 className="text-center">My Pokedex</h1>
+        <CardType getMyPokedex={() => action(REQUEST_CARD)} />
+        <ModalType getMyPokedex={(search) => action(REQUEST_CARD, search)} />
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

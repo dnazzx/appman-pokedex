@@ -1,30 +1,27 @@
+// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import { getMyPokedex, addCard } from "../redux/actions/cardAction";
 import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
 import { useDispatch, useSelector } from "react-redux";
 import searchimg from "../search.png";
 
-type pokedex = {
-  card: statePokedex
-}
-type statePokedex = {
-  loading: boolean,
-  selected: [],
-  query: pokedex_item[]
-}
 interface pokedex_item {
   id: string,
   name: string,
   imageUrl: string,
   hp: number,
   number: number,
-  attacks: [{
-    damage: number
-  }],
+  attacks: { damage: number }[],
   weaknesses: [{
-    type: string,
     value: number
   }]
+}
+type statePokedex = {
+  selected: [],
+  query: pokedex_item[]
+}
+type pokedex = {
+  card: statePokedex
 }
 
 function ModalType() {
@@ -69,7 +66,6 @@ function ModalType() {
     );
   };
 
-  // manage card
   const renderPokedex = (item: pokedex_item, index: number) => {
     return (
       <div className="card" key={index}>
@@ -162,9 +158,8 @@ function ModalType() {
 
   useEffect(() => {
     dispatch(getMyPokedex({}, search));
-  });
+  }, [getMyPokedex({}, search)]);
 
-  // manage modal
   return (
     <div className="menu-footer">
       <label className="menu-btn" htmlFor="modal-state">
