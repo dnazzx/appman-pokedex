@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from "react";
 import cuteimg from "../cute.png";
 
@@ -22,6 +23,7 @@ export const calDamage = (atk: {damage: number}[]) => {
       let dmg = parseInt(temp, 10);
       sum_dmg = sum_dmg + dmg;
     }
+    if (isNaN(sum_dmg)) sum_dmg = 0;
     return sum_dmg;
   };
 
@@ -32,15 +34,16 @@ export const calWeak = (weak: {value: number}[]) => {
     return (num = num * 100);
   };
 
-export const calHappiness = (hp:number, weak:number, dmg:number) => {
+export const calHappiness = (id:string, hp:number, weak:number, dmg:number) => {
     if (hp >= 100) hp = 100;
     else if (isNaN(hp)) hp = 0;
     let happiness = Math.ceil(hp / 10 + dmg / 10 + 10 - weak / 100) / 5;
 
     let element = [];
-    for (let i = 0; i < happiness; i++) {
+    for (let i = 0; i < happiness; i++) {  
+      const value = id + '_' + i
       element.push(
-        <img src={cuteimg} alt="HAPPINESS" />
+        <img src={cuteimg} key={value} alt="HAPPINESS"/>
       );
     }
     return element;

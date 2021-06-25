@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { useEffect } from "react";
 import { getMyPokedex, removeCard } from "../redux/actions/cardAction";
-import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStat";
+import { calStr, calWeak, calDamage, calHappiness } from "../functions/calStatType";
 import { useDispatch, useSelector } from "react-redux";
 
 interface pokedex_item {
@@ -103,8 +103,8 @@ function CardType() {
             </tbody>
           </table>
           <div className="happiness">
-            {/* <img src={cuteimg} alt="HAPPINESS" /> */}
             {calHappiness(
+              item.id,
               item.hp,
               calWeak(item.weaknesses),
               calDamage(item.attacks)
@@ -121,14 +121,16 @@ function CardType() {
             X
           </button>
         </div>
-      </div>
+        </div>
     );
   };
+
+  
 
   return (
     <div className="card-area">
       <div className="card-body">
-        {cards.selected.map((item, index) => {
+        {cards.selected.map((item: pokedex_item, index: number) => {
           return renderPokedex(item, index);
         })}
       </div>

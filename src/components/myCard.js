@@ -16,15 +16,12 @@ class myCard extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.card)
     this.props.getMyPokedex();
   }
   handleRemove = (item) => {
-    console.log(item)
     this.props.removeCard(item);
   };
   renderPokedex = (item, index) => {
-    // const { search } = this.state;
     return (
       <div className="card" key={index}>
         <div className="card-pic">
